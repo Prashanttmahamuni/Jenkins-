@@ -45,7 +45,7 @@ Hence, we automate this process using **Jenkins**.
 ## 🏗️ Jenkins Setup
 
 📄 **Setup Guide:**  
-[Click here to open Jenkins Server Setup Instructions](https://github.com/ashokitschool/DevOps-Documents/blob/main/01-Jenkins-Server-Setup.md)
+[Click here to open Jenkins Server Setup Instructions](https://github.com/Prashanttmahamuni/Jenkins-/blob/main/Installation.sh)
 
 ---
 
