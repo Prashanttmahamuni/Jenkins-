@@ -8,7 +8,7 @@
 - It is developed using **Java** language.  
 - Jenkins is known as a **CI/CD Server**, where:
   - **CI** → Continuous Integration  
-  - **CD** → Continuous Delivery  
+  - **CD** → Continuous Delivery 
 
 > CI/CD is an approach to automate the **project build** and **deployment** process.
 
