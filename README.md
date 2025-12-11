@@ -1,75 +1,313 @@
-# 🧩 JENKINS
+# 📘 Jenkins Complete Guide – CI/CD, Architecture, Pipeline & Projects
+
+This guide covers Jenkins fundamentals, architecture, pipeline concepts, master–agent setup, and hands-on DevOps projects including Node.js application deployment.
 
 ---
 
-## 📘 Introduction
+## 🚀 What is Jenkins?
+Jenkins is an open-source automation server written in Java.  
+It is widely used to automate the entire SDLC — **Build, Test, and Deploy**.
 
-- **Jenkins** is an **open-source** automation server, available **free of cost**.  
-- It is developed using **Java** language.  
-- Jenkins is known as a **CI/CD Server**, where:
-  - **CI** → Continuous Integration  
-  - **CD** → Continuous Delivery 
-
-> CI/CD is an approach to automate the **project build** and **deployment** process.
-
-Using Jenkins, we can deploy **any type of project**, such as:
-- Java
-- Python
-- .NET
-- React
-- Angular
+### ✔ Key Features
+- Automates CI/CD workflows  
+- Integrates with any SCM (GitHub, GitLab, Bitbucket)  
+- Supports **1,800+ plugins**  
+- Free, open-source, self-hosted  
+- Highly customizable and scalable  
 
 ---
 
-## ⚙️ What is Build & Deployment?
+## ❓ Why Jenkins?
 
-### 🔹 Build Process
-1. Take the latest code from **GitHub Repository**  
-2. Build source code using **Maven**  
-3. Perform **Code Review** using **SonarQube**  
-4. Upload project artifact into **Nexus Repository**
-
-### 🔹 Deployment Process
-5. Deploy the code into the **Server**
-
-> 💡 In a single day, multiple commits are made by developers to the GitHub repository, which means the build and deployment process must run multiple times.
-
-Performing these steps **manually** is:
-- **Time-consuming**
-- **Error-prone**
-
-Hence, we automate this process using **Jenkins**.
+| Feature       | Jenkins                          |
+|---------------|----------------------------------|
+| **Cost**      | Free & Open Source               |
+| **Plugins**   | 1800+ integrations               |
+| **Usability** | User-friendly                    |
+| **Customization** | Highly flexible              |
+| **Self-Hosted**   | Best for Private VPCs, secure environments |
 
 ---
 
-## 🏗️ Jenkins Setup
+## 🔄 CI vs CD (Delivery vs Deployment)
 
-📄 **Setup Guide:**  
-[Click here to open Jenkins Server Setup Instructions](https://github.com/Prashanttmahamuni/Jenkins-/blob/main/Installation.sh)
+1️⃣ **Continuous Integration (CI)**  
+Developers frequently merge code → Jenkins automatically builds & tests the application.  
 
----
+2️⃣ **Continuous Delivery (CD)**  
+System automatically builds, tests, and prepares a release → manual approval required for production.  
 
-## 🧠 What is a Job in Jenkins?
-
-A **Job** in Jenkins represents a **set of steps** that Jenkins performs to complete a task.
-
-### Example Job Steps:
-1. Take code from **Git Repository**  
-2. Perform **Maven Build**  
-3. Build **Docker Image**  
-4. Deploy **Docker Image** into **Kubernetes Cluster**
+3️⃣ **Continuous Deployment**  
+Every successful change is automatically deployed to production → no manual approval.  
 
 ---
 
-## 🚀 Summary
+## 🏗 Jenkins Architecture – Master / Agent (Slave)
 
-| Feature | Description |
-|----------|--------------|
-| Type | Open-source CI/CD Server |
-| Language | Java |
-| Automation Scope | Build & Deployment |
-| Supports | Java, Python, .NET, React, Angular, etc. |
+Jenkins follows a **Master–Agent architecture**, allowing distributed workloads.
+
+### 🖥️ Master (Controller)
+Responsible for:
+- Managing Jenkins configuration  
+- Scheduling jobs  
+- Checking node health  
+- Providing Web UI  
+- Distributing builds to agents  
+
+> Master requires more CPU, RAM, and storage.
+
+### 🖥️ Agent (Slave)
+Agents perform:
+- Build  
+- Test  
+- Deployment  
+
+Each agent can run on Windows/Linux and supports parallel job execution.
+
+### 🔁 How the Architecture Works
+1. Developer pushes code → GitHub  
+2. Jenkins Master receives trigger  
+3. Master assigns job to Agent  
+4. Agent executes tasks  
+5. Results sent back to Master  
 
 ---
 
-> 🧰 **Jenkins** helps automate the complete software delivery pipeline — from **code integration** to **deployment**, ensuring speed, reliability, and consistency.
+## 📘 Jenkins Terminologies
+
+| Term        | Meaning                                      |
+|-------------|----------------------------------------------|
+| **Job**     | Operation performed in Jenkins               |
+| **Project** | Job configuration (Freestyle / Pipeline)     |
+| **Plugins** | Third-party integrations                     |
+| **Workspace** | Directory where Jenkins stores job data    |
+| **Build**   | Execution instance of a job                  |
+| **Build Result** | Pass / Fail                             |
+
+---
+
+## 🛠 Create First Jenkins Job
+1. Login to Jenkins  
+2. Click **New Item → Freestyle project**  
+3. Configure SCM, build steps, and post-build actions  
+
+---
+
+## 🏗 Master–Slave Setup (Project 1)
+
+### Master Requirements
+- Install Java  
+- Install Jenkins  
+- Install SSH Build Agents Plugin  
+
+### Agent Requirements
+- Launch EC2 instance  
+- Install same Java version as master  
+- Provide:  
+  - Private IP  
+  - Private Key  
+  - Username (ubuntu/ec2-user)  
+
+### Steps
+1. Install Java on Agent  
+2. Install SSH Agent Plugin on Master  
+3. Add Agent in Jenkins  
+4. SSH using private IP for security (within same VPC)  
+
+---
+
+## 📬 Project 2: Email Notification for Failed Builds
+
+**Why Email Alerts?**  
+Whenever a build fails, Jenkins should notify developers automatically.
+
+### SMTP Configuration (Gmail)
+- SMTP Server: `smtp.gmail.com`  
+- Port: `465`  
+- SSL: Enabled  
+- Username: `<your-email>`  
+- App Password: `<generated-app-password>`  
+
+Add test email → configure → save.
+
+---
+
+## 🟦 Jenkins Freestyle Project for Node.js App
+
+### Requirements
+- Install: Node.js, npm, pm2 on Jenkins server  
+- Install: node, npm, pm2 on deployment server  
+
+### Jenkins Job Workflow
+**Job 1: Pull Code**
+```bash
+Git → Repository URL
+Post Build → Trigger "Install Dependency" job
+```
+Job 2: Install Dependencies
+
+bash
+```
+cd /var/lib/jenkins/workspace/<job-name>
+npm install
+Job 3: Deploy Application
+```
+bash
+```
+cd /var/lib/jenkins/workspace/<job-name>
+pm2 start app.js --name node-app || pm2 restart node-app
+```
+🧩 Troubleshooting
+Jenkins workspace folder = workspace/<job-name> NOT repo name
+
+Ensure node, npm, pm2 installed for Jenkins user
+
+PM2 files stored inside Jenkins home: /var/lib/jenkins/.pm2
+
+📜 Jenkins Pipeline (Declarative vs Scripted)
+Pipeline = Infrastructure as Code for CI/CD.
+
+1️⃣ Declarative Pipeline
+Latest
+
+Easy syntax
+
+Starts with pipeline { }
+
+Built using DSL
+
+Example:
+
+groovy
+```
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building"
+            }
+        }
+    }
+}
+```
+2️⃣ Scripted Pipeline
+Core Groovy
+
+More complex
+
+Starts with node { }
+
+Example:
+
+groovy
+```
+def names = ["dev", "stage", "prod"]
+names.each { env ->
+    println("Deploying to ${env}")
+}
+```
+🧰 Snippet Generator
+Jenkins provides autogenerated pipeline syntax for:
+
+Git checkout
+
+Docker build/push
+
+Kubernetes deploy
+
+Maven
+
+Email
+
+Archive artifacts
+
+Access via: Pipeline Job → Pipeline Syntax
+
+🚀 Project 3: Node.js App CI/CD Using Declarative Pipeline
+Prerequisites
+GitHub Repository
+
+Jenkins Server
+
+Node Application Deployment Server
+
+Install required plugins:
+
+Pipeline
+
+SSH Agent
+
+GitHub
+
+✔ Example Declarative Pipeline (Full CI/CD)
+groovy
+```
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Pull Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/user/node-app.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh '''
+                    cd $WORKSPACE
+                    npm install
+                '''
+            }
+        }
+
+        stage('Deploy to Server') {
+            steps {
+                sshagent (credentials: ['node-server']) {
+                    sh '''
+                        ssh ubuntu@<NODE_SERVER_IP> '
+                            cd /home/ubuntu/node-app &&
+                            pm2 start app.js --name node-app || pm2 restart node-app
+                        '
+                    '''
+                }
+            }
+        }
+    }
+}
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Pull Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/user/node-app.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh '''
+                    cd $WORKSPACE
+                    npm install
+                '''
+            }
+        }
+
+        stage('Deploy to Server') {
+            steps {
+                sshagent (credentials: ['node-server']) {
+                    sh '''
+                        ssh ubuntu@<NODE_SERVER_IP> '
+                            cd /home/ubuntu/node-app &&
+                            pm2 start app.js --name node-app || pm2 restart node-app
+                        '
+                    '''
+                }
+            }
+        }
+    }
+}
