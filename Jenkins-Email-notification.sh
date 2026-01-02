@@ -9,7 +9,7 @@ If a build fails, developers must be notified immediately to fix issues before t
 Jenkins can automatically send email notifications to developers when a build fails.
 
 To enable this, Jenkins needs a valid email account configured with SMTP (Secure Mail Transfer Protocol).
-
+ 
 This ensures fast feedback loops and keeps the team aligned.
 
 ✅ Prerequisites
