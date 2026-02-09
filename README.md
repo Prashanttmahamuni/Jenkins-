@@ -10,7 +10,7 @@ It is widely used to automate the entire SDLC — **Build, Test, and Deploy**.
 - Automates CI/CD workflows  
 - Integrates with any SCM (GitHub, GitLab, Bitbucket)  
 - Supports **1,800+ plugins**  
-- Free, open-source, self-hosted  
+- Free, open-source, self-hosted   
 - Highly customizable and scalable  
 
 ---
