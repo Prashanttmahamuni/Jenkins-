@@ -1,7 +1,7 @@
 # 📘 Jenkins Complete Guide – CI/CD, Architecture, Pipeline & Projects
                                                         
 This guide covers Jenkins fundamentals, architecture, pipeline concepts, master–agent setup, and hands-on DevOps projects including Node.js application deployment.
----                                                                        
+---                                                                          
 ## 🚀 What is Jenkins?    
 Jenkins is an open-source automation server written in Java.  
 It is widely used to automate the entire SDLC — **Build, Test, and Deploy**.
