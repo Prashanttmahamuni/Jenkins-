@@ -5,7 +5,7 @@ This guide covers Jenkins fundamentals, architecture, pipeline concepts, master�
 ## 🚀 What is Jenkins?                  
 Jenkins is an open-source automation server written in Java.  
 It is widely used to automate the entire SDLC — **Build, Test, and Deploy**.
-                                                                            
+                                                                                  
 ### ✔ Key Features    
 - Automates CI/CD workflows  
 - Integrates with any SCM (GitHub, GitLab, Bitbucket)  
