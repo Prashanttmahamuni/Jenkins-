@@ -12,7 +12,7 @@ It is widely used to automate the entire SDLC — **Build, Test, and Deploy**.
 - Supports **1,800+ plugins**   
 - Free, open-source, self-hosted   
 - Highly customizable and scalable            
-
+            
 ---
   
 ## ❓ Why Jenkins?
