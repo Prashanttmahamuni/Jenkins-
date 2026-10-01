@@ -14,7 +14,7 @@ It is widely used to automate the entire SDLC — **Build, Test, and Deploy**.
 - Highly customizable and scalable            
 
 ---
-
+  
 ## ❓ Why Jenkins?
 
 | Feature       | Jenkins                          |
